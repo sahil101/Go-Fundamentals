@@ -18,4 +18,10 @@ func main() {
 	fmt.Scan(&age)
 
 	fmt.Print("EmployeeId: ", employeeId, " \nSalary: ", salary, " \nAge: ", age)
+
+	returnedValue := fmt.Sprintf("Hello World") // returns String
+	fmt.Print(returnedValue)
+
+	fmt.Print(`Hello 
+	World`)
 }
