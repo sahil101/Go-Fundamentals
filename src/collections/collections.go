@@ -23,6 +23,7 @@ func main() {
 	fmt.Println(newSlicedArray)
 	fmt.Println(dynamicArrays)
 	exercise()
+	practiceMaps()
 }
 
 func exercise() {
@@ -46,6 +47,10 @@ func exercise() {
 	combinedSlice := append(newArray, newDynamicSlice...)
 	fmt.Println(combinedSlice)
 
+	// double dimension array
+	C2dArray := [][]int{{200}, {200}}
+	fmt.Println(C2dArray)
+
 }
 
 // Time to practice what you learned!
@@ -65,3 +70,31 @@ func exercise() {
 // 7) Bonus: Create a "Product" struct with title, id, price and create a
 //		dynamic list of products (at least 2 products).
 //		Then add a third product to the existing list of products.
+
+func practiceMaps() {
+	var nameMap = map[string]int{
+		"Sahil":        26,
+		"Ishan":        25,
+		"Gaurang":      24,
+		"Sajal":        28,
+		"Honey Bhayia": 32,
+	}
+	fmt.Println(nameMap)
+
+	arr := make([]string, 2, 10)
+
+	arr = append(arr, "HDHMR")
+	arr = append(arr, "plywood")
+
+	fmt.Println(arr)
+
+	// use range for maps
+	for key, value := range nameMap {
+		println("key: ", key, "value: ", value)
+	}
+
+	for index, value := range arr {
+		println("index: ", index, ",value: ", value)
+	}
+
+}
