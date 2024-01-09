@@ -54,6 +54,7 @@ func getNoteData() (string, string) {
 	return title, content
 }
 
+// Reading long input strings
 func getUserInput(prompt string) string {
 	fmt.Printf("%v ", prompt)
 
