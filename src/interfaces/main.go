@@ -3,10 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"note/note"
 	"os"
 	"strings"
-
-	"example.com/note/note"
 )
 
 type saver interface {
@@ -20,7 +19,6 @@ type outputtable interface {
 
 func main() {
 	title, content := getNoteData()
-
 	userNote, err := note.New(title, content)
 	if err != nil {
 		fmt.Println(err)
