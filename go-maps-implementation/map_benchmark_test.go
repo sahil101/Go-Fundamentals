@@ -1,55 +1,54 @@
 package main
 
 import (
-	"math/rand"
 	"strconv"
 	"testing"
 )
 
-const numRows = 10_000_000
-
-func generateTestMap(n int) map[string]int {
-	m := make(map[string]int, n)
-	for i := 0; i < n; i++ {
-		m[strconv.Itoa(i)] = rand.Int()
+// setupMap creates a map with a specified number of elements.
+func setupMap(size int) map[string]int {
+	m := make(map[string]int, size)
+	for i := 0; i < size; i++ {
+		key := "key_" + strconv.Itoa(i)
+		m[key] = i
 	}
 	return m
 }
 
-func BenchmarkMapInsert(b *testing.B) {
-	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
-		m := make(map[string]int)
-		for j := 0; j < numRows; j++ {
-			m[strconv.Itoa(j)] = j
-		}
-	}
-}
-
+// BenchmarkMapLookup benchmarks the performance of map lookups.
 func BenchmarkMapLookup(b *testing.B) {
-	m := generateTestMap(numRows)
-	keys := make([]string, numRows)
-	for i := 0; i < numRows; i++ {
-		keys[i] = strconv.Itoa(i)
-	}
-	
+	b.ReportAllocs() // Explicitly enable memory allocation reporting for this benchmark.
+	const mapSize = 100000
+	m := setupMap(mapSize)
+
 	b.ResetTimer()
-	b.ReportAllocs()
-	
 	for i := 0; i < b.N; i++ {
-		key := keys[rand.Intn(numRows)]
+		key := "key_" + strconv.Itoa(i%mapSize)
 		_ = m[key]
 	}
 }
 
-func BenchmarkMapDelete(b *testing.B) {
-	b.ReportAllocs()
+// BenchmarkMapInsert benchmarks the performance of map insertions.
+func BenchmarkMapInsert(b *testing.B) {
+	b.ReportAllocs() // Explicitly enable memory allocation reporting.
+	m := make(map[string]int)
+
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		m := generateTestMap(numRows)
-		b.StartTimer()
-		for j := 0; j < numRows; j++ {
-			delete(m, strconv.Itoa(j))
-		}
-		b.StopTimer()
+		key := "new_key_" + strconv.Itoa(i)
+		m[key] = i
+	}
+}
+
+// BenchmarkMapDelete benchmarks the performance of map deletions.
+func BenchmarkMapDelete(b *testing.B) {
+	b.ReportAllocs() // Explicitly enable memory allocation reporting.
+	const mapSize = 100000
+	m := setupMap(mapSize)
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		key := "key_" + strconv.Itoa(i%mapSize)
+		delete(m, key)
 	}
 }
